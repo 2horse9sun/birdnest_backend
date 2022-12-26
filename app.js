@@ -35,7 +35,7 @@ app.use(cookieParser());
 // Routers
 app.use('/api/violation', violationRouter);
 
-cron.schedule("*/10 * * * * *", async () => {
+cron.schedule("*/2 * * * * *", async () => {
     console.log("---------------------");
     console.log(new Date(Date.now()).toISOString());
     const res = await updateViolationInfos();
