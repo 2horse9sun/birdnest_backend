@@ -3,7 +3,7 @@ const {getPilotBySerialNumber} = require('../controller/pilot');
 const {saveViolationInfos} = require('../controller/violation');
 const {SuccessResponse, ErrorResponse} = require('../utils/ResponseModel');
 
-const EXPIRATION_TIME = 100 * 60;
+const EXPIRATION_TIME = 10 * 60;
 
 const ORIGIN_POSITIONX = 250000;
 const ORIGIN_POSITIONY = 250000;

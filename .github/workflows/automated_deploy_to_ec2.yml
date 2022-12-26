@@ -7,6 +7,7 @@ on:
 
 env:
   SERVICE_NAME: birdnest_backend
+  PORT: 8080
 
 jobs:
   docker_build_and_push:
@@ -33,7 +34,6 @@ jobs:
         with:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{env.SERVICE_NAME}}:latest
-          context: .
       -
         name: Pull and Run on EC2
         uses: appleboy/ssh-action@master
@@ -45,4 +45,4 @@ jobs:
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{env.SERVICE_NAME}}:latest
             docker stop ${{env.SERVICE_NAME}}
             docker rm ${{env.SERVICE_NAME}}
-            docker run -d --name ${{env.SERVICE_NAME}} -p 8000:8000 --env-file ~/${{env.SERVICE_NAME}}.env ${{ secrets.DOCKERHUB_USERNAME }}/${{env.SERVICE_NAME}}:latest
+            docker run -d --name ${{env.SERVICE_NAME}} -p ${{env.PORT}}:${{env.PORT}} --env-file ~/${{env.SERVICE_NAME}}.env ${{ secrets.DOCKERHUB_USERNAME }}/${{env.SERVICE_NAME}}:latest
