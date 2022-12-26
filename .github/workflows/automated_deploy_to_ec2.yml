@@ -33,6 +33,7 @@ jobs:
         with:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{env.SERVICE_NAME}}:latest
+          context: .
       -
         name: Pull and Run on EC2
         uses: appleboy/ssh-action@master
