@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session);
+const cors = require('cors');
 const {updateViolationInfos} = require('./task/updateViolationInfos');
 
 // Routers
@@ -26,7 +27,9 @@ app.use(logger('dev'));
 //   stream: writeStream
 // }));
 
-
+app.use(cors({
+  origin: '*'
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
