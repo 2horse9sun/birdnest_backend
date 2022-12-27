@@ -3,15 +3,19 @@ const {getPilotBySerialNumber} = require('../controller/pilot');
 const {saveViolationInfos} = require('../controller/violation');
 const {SuccessResponse, ErrorResponse} = require('../utils/ResponseModel');
 
+// Item in DynamoDB will expire 10min after when the snapshot was taken
 const EXPIRATION_TIME = 10 * 60;
 
+// NDZ metrics
 const ORIGIN_POSITIONX = 250000;
 const ORIGIN_POSITIONY = 250000;
 const RADIUS = 100000;
 
+
 const dist2 = (p1x, p1y, p2x, p2y) => {
     return (p1x-p2x)**2 + (p1y-p2y)**2;
 }
+
 
 const getDronesInTheCircle = (allDrones) => {
     let dronesInTheCircle = [];
@@ -27,6 +31,8 @@ const getDronesInTheCircle = (allDrones) => {
     return dronesInTheCircle;
 }
 
+
+// Combine all necessary data (drone, pilot, time) into an item
 const buildViolationInfos = (dronesInTheCircle, snapshotTimestamp) => {
     let promises = [];
     for(const drone of dronesInTheCircle){
@@ -43,6 +49,9 @@ const buildViolationInfos = (dronesInTheCircle, snapshotTimestamp) => {
     return Promise.all(promises);
 }
 
+
+// Detect drones in NDZ, query those drones' pilots' info and save them into DB
+// The task can also be separated from the node server and run as a service
 const updateViolationInfos = async () => {
     try {
         const allDronesData = await getAllDrones();
@@ -61,6 +70,7 @@ const updateViolationInfos = async () => {
         return new ErrorResponse(error);
     }
 }
+
 
 module.exports = {
     updateViolationInfos

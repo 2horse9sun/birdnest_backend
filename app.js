@@ -14,8 +14,8 @@ const {updateViolationInfos} = require('./task/updateViolationInfos');
 // Routers
 const violationRouter = require('./routes/violation');
 
-
 const app = express();
+
 
 // logger
 app.use(logger('dev'));
@@ -27,17 +27,23 @@ app.use(logger('dev'));
 //   stream: writeStream
 // }));
 
+
+// Allow all CORS origin for simplicity
 app.use(cors({
   origin: '*'
 }));
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+
 // Routers
 app.use('/api/violation', violationRouter);
 
+
+// Scheduled Task: update violation info every two seconds
 cron.schedule("*/2 * * * * *", async () => {
     console.log("---------------------");
     console.log(new Date(Date.now()).toISOString());

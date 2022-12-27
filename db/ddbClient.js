@@ -1,7 +1,5 @@
-// Load the AWS SDK for Node.js
+// AWS DynamoDB client config
 const AWS = require('aws-sdk');
-
-// Set the region 
 AWS.config.update({
   accessKeyId: process.env.ACCESS_KEY_ID,
   secretAccessKey: process.env.SECRET_ACCESS_KEY,
@@ -11,10 +9,14 @@ AWS.config.update({
 // Create the DynamoDB service object
 const ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
+
+// Parse DynamoDB item format into JSON format
 const unmarshell = (data) => {
     return AWS.DynamoDB.Converter.unmarshall(data);
 }
 
+
+//===============DynamoDB access methods==================
 const query = (params) => {
     const promise = new Promise((resolve, reject) => {
         ddb.query(params, function(err, data) {
@@ -27,6 +29,7 @@ const query = (params) => {
     })
     return promise;
 }
+
 
 const putItem = (params) => {
     const promise = new Promise((resolve, reject) => {
@@ -41,6 +44,7 @@ const putItem = (params) => {
     return promise;
 }
 
+
 const batchWriteItem = (params) => {
     const promise = new Promise((resolve, reject) => {
         ddb.batchWriteItem(params, function(err, data) {
@@ -54,6 +58,7 @@ const batchWriteItem = (params) => {
     return promise;
 }
 
+
 const scan = (params) => {
     const promise = new Promise((resolve, reject) => {
         ddb.scan(params, function (err, data) {
@@ -66,6 +71,7 @@ const scan = (params) => {
     })
     return promise;
 }
+
 
 module.exports = {
     unmarshell,
