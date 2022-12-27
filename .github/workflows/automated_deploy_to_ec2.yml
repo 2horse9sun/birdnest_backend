@@ -36,12 +36,12 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.SERVICE_NAME }}:latest
       -
         name: Pull and Run on EC2
-        uses: appleboy/ssh-action@master
+        uses: fifsky/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOSTNAME }}
-          username: ec2-user
+          user: ec2-user
           key: ${{ secrets.EC2_PRIVATE_KEY }}
-          script: |
+          command: |
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{env.SERVICE_NAME}}:latest
             docker stop ${{env.SERVICE_NAME}}
             docker rm ${{env.SERVICE_NAME}}
