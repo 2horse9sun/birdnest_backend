@@ -45,10 +45,10 @@ const getViolationInfos = async () => {
     let marshelledViolationInfos = await scan(params);
     let violationInfos = [];
     for(let marshelledViolationInfo of marshelledViolationInfos){
-        const violationInfo = unmarshell(marshelledViolationInfo);
+        let violationInfo = unmarshell(marshelledViolationInfo);
         violationInfos.push(violationInfo);
     }
-    return SuccessResponse(violationInfos);
+    return new SuccessResponse(violationInfos);
 }
 
 
