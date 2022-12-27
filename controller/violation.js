@@ -48,7 +48,7 @@ const getViolationInfos = async () => {
         const violationInfo = unmarshell(marshelledViolationInfo);
         violationInfos.push(violationInfo);
     }
-    return violationInfos;
+    return SuccessResponse(violationInfos);
 }
 
 
