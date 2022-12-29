@@ -7,6 +7,65 @@ The project contains two parts: [frontend](https://github.com/2horse9sun/birdnes
 
 The demo for this project is available [here](http://birdnest.s3-website-eu-west-1.amazonaws.com/).
 
+## Quick Start
+Here are some instructions on how to run the project in several ways.
+
+### Prerequisites
+1. Node.js version: v16.16.0
+2. AWS DynamoDB correctly configured
+3. Docker (optional)
+
+### Run backend from source code
+First, clone the repository into your local machine:
+```bash
+git clone https://github.com/2horse9sun/birdnest_backend.git
+```
+Then, enter into the project folder and install required dependencies:
+```bash
+npm install
+```
+The next step is to create a file named `.env`, the format of which is:
+```YAML
+PORT=8080
+ACCESS_KEY_ID=${Your AWS user credential - access key id}
+SECRET_ACCESS_KEY=${Your AWS user credential - secret access key}
+REGION=${Your AWS DynamoDB location}
+```
+At last, run the backend:
+```bash
+npm run start
+```
+### Run backend by docker
+First, pull the image into your local machine:
+```bash
+docker pull jsjhfx/birdnest_backend:latest
+```
+Create a env file, the format of which is:
+```YAML
+PORT=8080
+ACCESS_KEY_ID=${Your AWS user credential - access key id}
+SECRET_ACCESS_KEY=${Your AWS user credential - secret access key}
+REGION=${Your AWS DynamoDB location}
+```
+At last, run the backend:
+```bash
+docker run -d --name birdnest_backend -p 8080:8080 --env-file ${Path to your env file} jsjhfx/birdnest_backend:latest
+```
+
+### Run frontend from source code
+First, clone the repository into your local machine:
+```bash
+git clone https://github.com/2horse9sun/birdnest_frontend.git
+```
+Then, enter into the project folder and install required dependencies:
+```bash
+npm install
+```
+At last, run the frontend:
+```bash
+npm start
+```
+
 ## Architecture Design
 ![image info](./doc/images/architecture.png)
 The above figure shows the overall architecture of the project. The architecture contains four parts: Node.js server, AWS DynamoDB, React.js website and third-party APIs.

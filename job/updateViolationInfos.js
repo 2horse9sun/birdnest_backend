@@ -51,7 +51,7 @@ const buildViolationInfos = (dronesInTheCircle, snapshotTimestamp) => {
 
 
 // Detect drones in NDZ, query those drones' pilots' info and save them into DB
-// The task can also be separated from the node server and run as a service
+// The job can also be separated from the node server and run as a service
 const updateViolationInfos = async () => {
     try {
         const allDronesData = await getAllDrones();

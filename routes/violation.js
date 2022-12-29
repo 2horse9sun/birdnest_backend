@@ -3,13 +3,13 @@ const router = express.Router();
 const {getAllDrones} = require('../controller/drone');
 const {getPilotBySerialNumber} = require('../controller/pilot');
 const {saveViolationInfos, getViolationInfos} = require('../controller/violation');
-const {updateViolationInfos} = require('../task/updateViolationInfos');
+const {updateViolationInfos} = require('../job/updateViolationInfos');
 const {SuccessResponse, ErrorResponse} = require('../utils/ResponseModel');
 
 
 router.get('/getViolationInfos', async (req, res, next) => {
-    const updateRes = await getViolationInfos();
-    return res.json(updateRes);
+    const violationRes = await getViolationInfos();
+    return res.json(violationRes);
 });
 
 

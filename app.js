@@ -9,7 +9,7 @@ const logger = require('morgan');
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session);
 const cors = require('cors');
-const {updateViolationInfos} = require('./task/updateViolationInfos');
+const {updateViolationInfos} = require('./job/updateViolationInfos');
 
 // Routers
 const violationRouter = require('./routes/violation');
@@ -43,7 +43,7 @@ app.use(cookieParser());
 app.use('/api/violation', violationRouter);
 
 
-// Scheduled Task: update violation info every two seconds
+// Scheduled Job: update violation info every two seconds
 cron.schedule("*/2 * * * * *", async () => {
     console.log("---------------------");
     console.log(new Date(Date.now()).toISOString());

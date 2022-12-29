@@ -44,19 +44,25 @@ const saveViolationInfos = async (violationInfos) => {
 
 
 const getViolationInfos = async () => {
-    const params = {
-        ProjectionExpression: "pilotId, firstName, lastName, phoneNumber, email, closestDist, snapshotTimestamp",
-        TableName: "birdnest_violation_info",
-    };
-
-    // Parse DynamoDB item format into JSON format
-    let marshelledViolationInfos = await scan(params);
-    let violationInfos = [];
-    for(let marshelledViolationInfo of marshelledViolationInfos){
-        let violationInfo = unmarshell(marshelledViolationInfo);
-        violationInfos.push(violationInfo);
+    try {
+        const params = {
+            ProjectionExpression: "pilotId, firstName, lastName, phoneNumber, email, closestDist, snapshotTimestamp",
+            TableName: "birdnest_violation_info",
+        };
+    
+        // Parse DynamoDB item format into JSON format
+        let marshelledViolationInfos = await scan(params);
+        let violationInfos = [];
+        for(let marshelledViolationInfo of marshelledViolationInfos){
+            let violationInfo = unmarshell(marshelledViolationInfo);
+            violationInfos.push(violationInfo);
+        }
+        return new SuccessResponse(violationInfos);
+    } catch (error) {
+        console.log(error);
+        return new ErrorResponse(error);
     }
-    return new SuccessResponse(violationInfos);
+    
 }
 
 
