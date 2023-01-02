@@ -45,14 +45,10 @@ app.use('/api/violation', violationRouter);
 
 // Scheduled Job: update violation info every two seconds
 cron.schedule("*/2 * * * * *", async () => {
-  try {
     console.log("---------------------");
     console.log(new Date(Date.now()).toISOString());
     const res = await updateViolationInfos();
     console.log(`${res.data.length} violations detected...`);
-  } catch (error) {
-    console.log(error);
-  }
   });
 
 module.exports = app;

@@ -33,7 +33,7 @@ const getDronesInTheCircle = (allDrones) => {
 
 
 // Combine all necessary data (drone, pilot, time) into an item
-const buildViolationInfos = (dronesInTheCircle, snapshotTimestamp) => {
+const buildViolationInfos = async (dronesInTheCircle, snapshotTimestamp) => {
     let promises = [];
     for(const drone of dronesInTheCircle){
         const promise = new Promise(async (resolve, reject) => {
@@ -46,7 +46,8 @@ const buildViolationInfos = (dronesInTheCircle, snapshotTimestamp) => {
         });
         promises.push(promise);
     }
-    return Promise.all(promises);
+    const violationInfos = await Promise.all(promises);
+    return violationInfos;
 }
 
 

@@ -4,9 +4,13 @@ const {GET_PILOTS_API} = require('../config/api');
 
 
 const getPilotBySerialNumber = async (serialNumber) => {
-    const pilotData = await fetch(GET_PILOTS_API + '/' + serialNumber);
-    const pilotText = await pilotData.text();
-    if(pilotText === ""){
+    try {
+        const pilotData = await fetch(GET_PILOTS_API + '/' + serialNumber);
+        const pilotText = await pilotData.text();
+        const pilot = JSON.parse(pilotText);
+        return pilot;
+    } catch (error) {
+        console.log(error);
         return {
             "pilotId": "null",
             "firstName": "null",
@@ -15,10 +19,8 @@ const getPilotBySerialNumber = async (serialNumber) => {
             "createdDt": "null",
             "email": "null"
         };
-    }else {
-        const pilot = JSON.parse(pilotText);
-        return pilot;
     }
+
 }
 
 
