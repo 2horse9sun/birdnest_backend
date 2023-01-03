@@ -43,4 +43,4 @@ jobs:
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{env.SERVICE_NAME}}:latest
             docker stop ${{env.SERVICE_NAME}}
             docker rm ${{env.SERVICE_NAME}}
-            docker run -d --name ${{env.SERVICE_NAME}} -p ${{env.PORT}}:${{env.PORT}} --env-file ~/${{env.SERVICE_NAME}}.env ${{ secrets.DOCKERHUB_USERNAME }}/${{env.SERVICE_NAME}}:latest
+            docker run -d --name ${{env.SERVICE_NAME}} -p ${{env.PORT}}:${{env.PORT}} --restart always --env-file ~/${{env.SERVICE_NAME}}.env ${{ secrets.DOCKERHUB_USERNAME }}/${{env.SERVICE_NAME}}:latest
