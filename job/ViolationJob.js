@@ -1,6 +1,6 @@
-const {getAllDrones} = require('../controller/drone');
-const {getPilotBySerialNumber} = require('../controller/pilot');
-const {saveViolationInfos} = require('../controller/violation');
+const {getAllDrones} = require('../models/DroneModel');
+const {getPilotBySerialNumber} = require('../models/PilotModel');
+const {saveViolationInfos} = require('../models/ViolationModel');
 const {SuccessResponse, ErrorResponse} = require('../utils/ResponseModel');
 
 // Item in DynamoDB will expire 10min after when the snapshot was taken

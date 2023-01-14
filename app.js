@@ -9,10 +9,10 @@ const logger = require('morgan');
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session);
 const cors = require('cors');
-const {updateViolationInfos} = require('./job/updateViolationInfos');
+const {updateViolationInfos} = require('./job/ViolationJob');
 
 // Routers
-const violationRouter = require('./routes/violation');
+const ViolationRouter = require('./routes/ViolationRouter');
 
 const app = express();
 
@@ -40,7 +40,7 @@ app.use(cookieParser());
 
 
 // Routers
-app.use('/api/violation', violationRouter);
+app.use('/api/violation', ViolationRouter);
 
 
 // Scheduled Job: update violation info every two seconds
