@@ -25,7 +25,7 @@ const saveViolationInfos = async (violationInfos) => {
         }
 
         // Put(Replace) current info into DB
-        var putParams = {
+        const putParams = {
             TableName: 'birdnest_violation_info',
             Item: {
                 "pilotId": {S: violationInfo.pilotId},
@@ -38,7 +38,7 @@ const saveViolationInfos = async (violationInfos) => {
                 "closestDist": {N: closestDist.toString()}
             }
           };
-          await putItem(putParams);
+        await putItem(putParams);
     }
 }
 
